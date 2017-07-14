@@ -74,4 +74,18 @@ public ResponseEntity<?> login(@RequestBody Users users,HttpSession session){
 		return new ResponseEntity<Users>(validUser,HttpStatus.OK);
 	}
 }
+@RequestMapping(value="/logout",method=RequestMethod.GET)
+public ResponseEntity<?> logout(HttpSession session){
+Users users=(Users)session.getAttribute("user");
+if(users==null){
+Error error=new Error(3,"Unauthorized user.");
+return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 }
+users.setOnline(false);
+userDao.updateUser(users);
+session.removeAttribute("user");
+session.invalidate();
+return new ResponseEntity<Void>(HttpStatus.OK);
+}
+}
+

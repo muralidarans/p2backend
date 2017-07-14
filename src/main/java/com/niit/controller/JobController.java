@@ -1,5 +1,7 @@
 package com.niit.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,7 +33,20 @@ if(users==null){
 }
 try{
 	if(users.getRole().equals("admin")){
-		job.setPostedon(Calendar.getInstance().toString());
+		
+		/*
+		 * 
+			 LocalDateTime now = LocalDateTime.now();
+
+        System.out.println("Before : " + now);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        String formatDateTime = now.format(formatter);
+		 */
+		LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		job.setPostedon(now.format(formatter));
 		jobDao.saveJob(job);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
