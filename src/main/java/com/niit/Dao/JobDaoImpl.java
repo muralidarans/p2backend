@@ -22,7 +22,7 @@ public void saveJob(Job job){
 	session.close();
 
 }
-@Override
+
 public List<Job> getAllJobs() {
 	Session session=sessionFactory.openSession();
 	Query query=session.createQuery("from Job");

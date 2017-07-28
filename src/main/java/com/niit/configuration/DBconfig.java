@@ -12,6 +12,9 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.model.BlogComment;
+import com.niit.model.BlogPost;
+import com.niit.model.Friend;
 import com.niit.model.Job;
 import com.niit.model.Users;
 @Configuration
@@ -26,8 +29,10 @@ public class DBconfig {
 	"hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
 	hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
 	hibernateProperties.setProperty("hibernate.show_sql", "true");
+	hibernateProperties.setProperty("hibernate.connection.SetBigStringTryClob", "true");
+	hibernateProperties.setProperty("hibernate.jdbc.batch_size", "0");
 	lsf.addProperties(hibernateProperties);
-	Class classes[]=new Class[]{Users.class,Job.class};
+	Class classes[]=new Class[]{Users.class,Job.class,Friend.class,BlogPost.class,BlogComment.class};
 	return lsf.addAnnotatedClasses(classes).buildSessionFactory();
 	}
 	@Bean
