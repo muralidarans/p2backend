@@ -60,6 +60,19 @@ public ResponseEntity<?> saveUser(@RequestBody Users user){
 		return new ResponseEntity<Error>(er,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
+
+@RequestMapping(value="/updateprofile",method=RequestMethod.PUT)
+	public ResponseEntity<?> updateProfile(@RequestBody Users users,HttpSession session)
+	{
+		Users user=(Users) session.getAttribute("user");
+		if(user==null)
+		{
+			Error error=new Error(6,"Unauthorized user");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		userDao.updateUser(users);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 @RequestMapping(value="/login",method=RequestMethod.POST)
 public ResponseEntity<?> login(@RequestBody Users users,HttpSession session){
 	Users validUser=userDao.login(users);

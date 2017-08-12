@@ -51,7 +51,7 @@ public void addComment(BlogComment blogComment){
 }
 public List<BlogComment> getBlogComments(int blogId){
 	Session session=sessionFactory.openSession();
-	Query query=session.createQuery("from blogComment where blogPost.id="+blogId);
+	Query query=session.createQuery("from BlogComment where blogpost.id="+blogId);
 	List<BlogComment> blogComments=query.list();
 	System.out.println(blogComments);
 	session.close();
